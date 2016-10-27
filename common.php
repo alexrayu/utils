@@ -20,7 +20,7 @@ function getCSV($file_name, $header_rows = 1) {
   if ($handle = fopen($file_name, "r")) {
     for ($i = 0; $i < $header_rows; $i++) {
       $header = fgetcsv($handle);
-      if (!array_search(KEY_ID, $header)) {
+      if (array_search(KEY_ID, $header) === FALSE) {
         $new_key = TRUE;
         array_unshift($header, KEY_ID);
       }
