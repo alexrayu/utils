@@ -51,7 +51,7 @@ function getCSV($file_name, $header_rows = 1) {
  * @param $other_id
  * @return array
  */
-function getCSVOtherID($file_name, $other_id, $header_rows = 1) {
+function getCSVOtherID($file_name, $header_rows = 1) {
   $data = [];
   $header = [];
   if ($handle = fopen($file_name, "r")) {
@@ -60,7 +60,7 @@ function getCSVOtherID($file_name, $other_id, $header_rows = 1) {
     }
     while (($fragment = fgetcsv($handle)) !== FALSE) {
       $joined = array_combine($header, $fragment);
-      $data[$joined[KEY_ID]][$joined[$other_id]] = $joined;
+      $data[$joined[KEY_ID]][$joined[ALT_ID]] = $joined;
     }
     fclose($handle);
   }
