@@ -44,6 +44,31 @@ function getCSV($file_name, $header_rows = 1) {
 }
 
 /**
+ * Get content of csv file by a different id.
+ *
+ * @param $file_name
+ * @param $header_rows
+ * @param $other_id
+ * @return array
+ */
+function getCSVOtherID($file_name, $other_id, $header_rows = 1) {
+  $data = [];
+  $header = [];
+  if ($handle = fopen($file_name, "r")) {
+    for ($i = 0; $i < $header_rows; $i++) {
+      $header = fgetcsv($handle);
+    }
+    while (($fragment = fgetcsv($handle)) !== FALSE) {
+      $joined = array_combine($header, $fragment);
+      $data[$joined[KEY_ID]][$joined[$other_id]] = $joined;
+    }
+    fclose($handle);
+  }
+
+  return ['header' => $header, 'data' => $data];
+}
+
+/**
  * Write the csv file.
  *
  * @param $output_file_name
