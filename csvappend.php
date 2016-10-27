@@ -38,19 +38,26 @@ foreach ($append as $source) {
   foreach ($data as $key => &$value) {
     if (isset($csvsource['data'][$key])) {
       unset($csvsource['data'][$key][KEY_ID]);
-      $vals = [];
+      $obits = [];
+      $gals = [];
       foreach ($csvsource['data'][$key] as $altkey => $altvalue) {
-        if (!empty($altvalue[ALT_ID])) {
-          $vals[] = $altvalue[ALT_ID];
+        if ($altvalue['type'] == 'obit') {
+          $obits[] = $altvalue[ALT_ID];
+        }
+        else {
+          $gals[] = $altvalue[ALT_ID];
         }
       }
-      $alt_data = [ALT_ID => implode(CNC_STR, $vals)];
-      $value = array_merge($value, $alt_data);
+      $obit_data = [ALT_ID . '_obit' => implode(CNC_STR, $obits)];
+      $gals_data = [ALT_ID . '_gal' => implode(CNC_STR, $gals)];
+      $value = array_merge($value, $obit_data);
+      $value = array_merge($value, $gals_data);
     }
   }
 }
 
-array_push($header, ALT_ID);
+array_push($header, ALT_ID . '_obit');
+array_push($header, ALT_ID . '_gal');
 array_unshift($data, $header);
 
 putCSV($output_file_name, $data);
