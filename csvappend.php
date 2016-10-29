@@ -10,7 +10,7 @@
 define('KEY_ID', 'id');
 
 // Alternative id.
-define('ALT_ID', 'iid');
+define('ALT_ID', 'lid');
 
 // Concatenate string.
 define('CNC_STR', ',');
@@ -21,7 +21,7 @@ include 'common.php';
 // CSV Files. First will be used as base.
 $base = 'main_obit.csv';
 $append = [
-  FOLDER . 'images.csv',
+  FOLDER . 'locations.csv',
 ];
 $output_file_name = FOLDER . 'output.csv';
 $header = [];
@@ -38,26 +38,17 @@ foreach ($append as $source) {
   foreach ($data as $key => &$value) {
     if (isset($csvsource['data'][$key])) {
       unset($csvsource['data'][$key][KEY_ID]);
-      $obits = [];
-      $gals = [];
+      $added = [];
       foreach ($csvsource['data'][$key] as $altkey => $altvalue) {
-        if ($altvalue['type'] == 'obit') {
-          $obits[] = $altvalue[ALT_ID];
-        }
-        else {
-          $gals[] = $altvalue[ALT_ID];
-        }
+        $added[] = $altvalue[ALT_ID];
       }
-      $obit_data = [ALT_ID . '_obit' => implode(CNC_STR, $obits)];
-      $gals_data = [ALT_ID . '_gal' => implode(CNC_STR, $gals)];
-      $value = array_merge($value, $obit_data);
-      $value = array_merge($value, $gals_data);
+      $added_data = [ALT_ID => implode(CNC_STR, $added)];
+      $value = array_merge($value, $added_data);
     }
   }
 }
 
-array_push($header, ALT_ID . '_obit');
-array_push($header, ALT_ID . '_gal');
+array_push($header, ALT_ID);
 array_unshift($data, $header);
 
 putCSV($output_file_name, $data);
