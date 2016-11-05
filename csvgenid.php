@@ -5,13 +5,13 @@
  *  CSV Generate ID is a tool to generate unique ids per row.
  */
 
-define('KEY_ID', 'lid');
+define('KEY_ID', 'mid');
 define('FOLDER', '');
 
 include 'common.php';
 
 // CSV Files. First will be used as base.
-$source = FOLDER . 'input.csv';
+$source = FOLDER . 'message.csv';
 $output_file_name = FOLDER . 'output.csv';
 $header = [];
 $data = [];
