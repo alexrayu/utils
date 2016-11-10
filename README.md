@@ -7,3 +7,4 @@ This is mostly a source of packed snippets.
 - *csvgenid.php* - Generate unique ids for each row.
 - *csvappend.php* - Append data with different base id into csv.
 - *csvverifyfiles.php* - Verify if files listed in csv are present.
+- *csvimages.php* - Dump images embedded in CSV as binary blobs.
