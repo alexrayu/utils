@@ -7,23 +7,22 @@
  */
 
 // Main id.
-define('KEY_ID', 'vet_id');
+define('KEY_ID', 'id');
 
 // Alternative id.
-define('ALT_ID', 'award_id');
+define('ALT_ID', 'lid');
 
 // Concatenate string.
 define('CNC_STR', ',');
-define('FOLDER', '');
 
 include 'common.php';
 
 // CSV Files. First will be used as base.
-$base = 'veteran_public.csv';
+$base = 'main_src.csv';
 $append = [
-  FOLDER . 'veteran_awards.csv',
+  'append_src_1.csv',
 ];
-$output_file_name = FOLDER . 'output.csv';
+$output_file_name = 'output.csv';
 $header = [];
 $data = [];
 
